@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Custom Tile Server</title><meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="leaflet.css"  crossorigin=""/>
+<script src="leaflet.js"  crossorigin=""></script><style>
+   html, body, #map {
+   width: 100%;
+   height: 100%;
+   margin: 0;
+   padding: 0;
+   }
+</style>
+</head><body>
+        <div id="map"></div><script>
+var map = L.map('map').setView([0, 0], 3);
+
+L.tileLayer('/tile/{z}/{x}/{y}.png', {
+maxZoom: 20,
+attribution: 'Map data &copy; <a   href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+id: 'base'
+}).addTo(map);
+
+var ZoomViewer = L.Control.extend({
+	onAdd: function(){
+		var container= L.DomUtil.create('div');
+		var gauge = L.DomUtil.create('div');
+		container.style.width = '200px';
+		container.style.background = 'rgba(255,255,255,0.5)';
+		container.style.textAlign = 'left';
+		map.on('zoomstart zoom zoomend', function(ev){
+			gauge.innerHTML = 'Zoom level: ' + map.getZoom();
+			})
+		container.appendChild(gauge);
+		return container;
+		}
+	});
+(new ZoomViewer).addTo(map);
+
+map.setView([46.538658,2.429888],3);
+
+</script></body>
+</html>
