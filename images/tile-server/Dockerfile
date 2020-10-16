@@ -19,7 +19,7 @@ USER renderer
 # Install mod_tile
 
 WORKDIR /home/renderer/src
-RUN git clone -b switch2osm git://github.com/SomeoneElseOSM/mod_tile.git
+RUN git clone -b switch2osm https://github.com/SomeoneElseOSM/mod_tile.git
 WORKDIR /home/renderer/src/mod_tile
 RUN ./autogen.sh && ./configure && make
 USER root
